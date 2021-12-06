@@ -23,11 +23,6 @@ public class State {
 
   private Integer ibge;
 
-  // 1st
-  /*@Column(name = "pais")
-  private Integer countryId;*/
-
-  // 2nd - @ManyToOne
   @ManyToOne
   @JoinColumn(name = "pais", referencedColumnName = "id")
   private Country country;
@@ -62,8 +57,4 @@ public class State {
   public Country getCountry() {
     return country;
   }
-
-  /*public Integer getCountryId() {
-      return countryId;
-  }*/
 }
