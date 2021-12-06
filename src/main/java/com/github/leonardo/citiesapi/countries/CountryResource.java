@@ -1,6 +1,5 @@
 package com.github.leonardo.citiesapi.countries;
 
-import com.github.leonardo.citiesapi.countries.repository.CountryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class CountryResource {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Object> getOne(@PathVariable Long id) {
+  public ResponseEntity<Country> getOne(@PathVariable Long id) {
     Optional<Country> optional = repository.findById(id);
 
     if (optional.isPresent()) {
