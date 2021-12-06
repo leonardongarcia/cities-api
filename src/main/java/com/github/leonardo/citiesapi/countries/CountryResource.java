@@ -1,6 +1,5 @@
 package com.github.leonardo.citiesapi.countries;
 
-import com.github.leonardo.citiesapi.countries.Country;
 import com.github.leonardo.citiesapi.countries.repository.CountryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,32 +11,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/countries")
-
 public class CountryResource {
 
+  private CountryRepository repository;
 
-    private CountryRepository repository;
+  public CountryResource(CountryRepository repository) {
+    this.repository = repository;
+  }
 
-    public CountryResource(CountryRepository repository) {
-        this.repository = repository;
-    }
+  @GetMapping
+  public Page<Country> countries(Pageable page) {
+    return repository.findAll(page);
+  }
 
-    @GetMapping
-    public Page<Country> countries(Pageable page) {
-        return repository.findAll(page);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getOne(@PathVariable Long id) {
-        Optional<Country> optional = repository.findById(id);
+  @GetMapping("/{id}")
+  public ResponseEntity<Object> getOne(@PathVariable Long id) {
+    Optional<Country> optional = repository.findById(id);
 
     if (optional.isPresent()) {
-        return ResponseEntity.ok().body(optional.get());
+      return ResponseEntity.ok().body(optional.get());
     } else {
-        return ResponseEntity.notFound().build();
+      return ResponseEntity.notFound().build();
     }
-    }
+  }
 }
